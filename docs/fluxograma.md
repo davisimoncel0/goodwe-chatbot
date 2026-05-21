@@ -8,23 +8,7 @@ Este documento mostra como o chatbot Chatbot GoodWe funciona, desde a pergunta d
 
 ## Fluxograma
 
-```mermaid
-flowchart TD
-    A["Operador Comercial"] -->|"Digita pergunta"| B["Interface Streamlit"]
-    B -->|"Envia mensagem"| C["FastAPI Backend"]
-    C --> D{"Classificação da Intenção"}
-    D -->|"Consulta técnica"| E["Pipeline RAG"]
-    D -->|"Pergunta geral"| F["Prompt Direto"]
-    D -->|"Fora do escopo"| G["Resposta de Redirecionamento"]
-    E --> H["ChromaDB - Busca Vetorial"]
-    H -->|"Documentos relevantes"| I["Montagem do Prompt"]
-    F --> I
-    I -->|"Prompt + Contexto + Histórico"| J["Google Gemini API"]
-    J -->|"Resposta gerada"| K["Pós-processamento"]
-    K -->|"Formatação"| L["Interface Streamlit"]
-    L -->|"Exibe resposta"| A
-    G -->|"Mensagem padrão"| L
-```
+![Fluxograma do Chatbot GoodWe](fluxograma.jpg)
 
 ---
 
