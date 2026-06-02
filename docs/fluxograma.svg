@@ -1,0 +1,111 @@
+<svg width="100%" viewBox="0 0 680 1060" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Fluxograma Chatbot GoodWe — Sprint 2</title>
+<desc>Fluxo completo do chatbot desde o operador comercial até a resposta via Qwen/Hugging Face</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    text { font-family: Arial, sans-serif; }
+    .th { font-size: 14px; font-weight: 600; fill: #2C2C2A; }
+    .ts { font-size: 12px; fill: #5F5E5A; }
+    .c-teal ellipse { fill: #E1F5EE; stroke: #0F6E56; }
+    .c-teal text { fill: #085041; }
+    .c-amber polygon, .c-amber rect { fill: #FAEEDA; stroke: #854F0B; }
+    .c-amber text { fill: #633806; }
+    .c-blue polygon { fill: #E6F1FB; stroke: #185FA5; }
+    .c-blue text { fill: #0C447C; }
+    .c-purple rect { fill: #EEEDFE; stroke: #534AB7; }
+    .c-purple text { fill: #3C3489; }
+  </style>
+</defs>
+
+<g class="c-teal">
+  <ellipse cx="340" cy="48" rx="90" ry="36" stroke-width="0.5"/>
+  <text class="th" x="340" y="48" text-anchor="middle" dominant-baseline="central">Operador Comercial</text>
+</g>
+
+<line x1="340" y1="84" x2="340" y2="114" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="352" y="102" dominant-baseline="central">Digita pergunta</text>
+
+<g class="c-amber">
+  <polygon points="270,116 410,116 430,140 410,164 270,164 250,140" stroke-width="0.5"/>
+  <text class="th" x="340" y="140" text-anchor="middle" dominant-baseline="central">Notebook / Terminal</text>
+</g>
+
+<line x1="340" y1="164" x2="340" y2="204" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="352" y="187" dominant-baseline="central">Envia mensagem</text>
+
+<g class="c-amber">
+  <rect x="230" y="206" width="220" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="340" y="228" text-anchor="middle" dominant-baseline="central">Gerenciamento de historico</text>
+</g>
+
+<line x1="340" y1="250" x2="340" y2="290" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+<g class="c-blue">
+  <polygon points="340,292 430,322 340,352 250,322" stroke-width="0.5"/>
+  <text class="th" x="340" y="315" text-anchor="middle" dominant-baseline="central">Classificacao</text>
+  <text class="ts" x="340" y="331" text-anchor="middle" dominant-baseline="central">da intencao</text>
+</g>
+
+<path d="M250 322 L120 322 L120 406" fill="none" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="60" y="348" dominant-baseline="central">Consulta</text>
+<text class="ts" x="60" y="362" dominant-baseline="central">tecnica</text>
+
+<line x1="340" y1="352" x2="340" y2="406" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="352" y="382" dominant-baseline="central">Pergunta geral</text>
+
+<path d="M430 322 L560 322 L560 406" fill="none" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="468" y="348" dominant-baseline="central">Fora do</text>
+<text class="ts" x="468" y="362" dominant-baseline="central">escopo</text>
+
+<g class="c-amber">
+  <rect x="50" y="408" width="140" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="120" y="423" text-anchor="middle" dominant-baseline="central">Montagem</text>
+  <text class="ts" x="120" y="439" text-anchor="middle" dominant-baseline="central">do prompt + RAG</text>
+</g>
+
+<g class="c-amber">
+  <rect x="230" y="408" width="220" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="340" y="430" text-anchor="middle" dominant-baseline="central">Prompt direto</text>
+</g>
+
+<g class="c-amber">
+  <rect x="474" y="408" width="156" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="552" y="423" text-anchor="middle" dominant-baseline="central">Resposta de</text>
+  <text class="ts" x="552" y="439" text-anchor="middle" dominant-baseline="central">redirecionamento</text>
+</g>
+
+<path d="M120 452 L120 520 L228 520" fill="none" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="452" x2="340" y2="510" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+<g class="c-purple">
+  <rect x="190" y="512" width="300" height="56" rx="8" stroke-width="0.5"/>
+  <text class="th" x="340" y="534" text-anchor="middle" dominant-baseline="central">Qwen 2.5-7B-Instruct</text>
+  <text class="ts" x="340" y="552" text-anchor="middle" dominant-baseline="central">Hugging Face Inference API</text>
+</g>
+
+<line x1="340" y1="568" x2="340" y2="618" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="352" y="596" dominant-baseline="central">Resposta gerada</text>
+
+<g class="c-amber">
+  <rect x="230" y="620" width="220" height="44" rx="8" stroke-width="0.5"/>
+  <text class="th" x="340" y="642" text-anchor="middle" dominant-baseline="central">Pos-processamento</text>
+</g>
+
+<path d="M340 664 L340 720 L474 720" fill="none" stroke="#888" stroke-width="0.5"/>
+<path d="M552 452 L552 720 L628 720" fill="none" stroke="#888" stroke-width="0.5"/>
+<text class="ts" x="468" y="712" dominant-baseline="central">Mensagem padrao</text>
+<line x1="474" y1="720" x2="490" y2="720" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+
+<g class="c-amber">
+  <polygon points="420,722 560,722 580,746 560,770 420,770 400,746" stroke-width="0.5"/>
+  <text class="th" x="490" y="746" text-anchor="middle" dominant-baseline="central">Notebook / Terminal</text>
+</g>
+
+<path d="M490 770 L490 830 L630 830 L630 48 L432 48" fill="none" stroke="#888" stroke-width="0.5" marker-end="url(#arrow)"/>
+<text class="ts" x="638" y="440" dominant-baseline="central">Exibe</text>
+<text class="ts" x="638" y="454" dominant-baseline="central">resposta</text>
+
+</svg>

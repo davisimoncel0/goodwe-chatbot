@@ -1,96 +1,78 @@
-# Chatbot GoodWe
+# Chatbot GoodWe - ChargeGrid Intelligence
 
-Chatbot com IA para auxiliar na gestão de eletropostos de recarga de veículos elétricos, desenvolvido para o EV Challenge 2026 (FIAP + GoodWe).
-
-**Sprint 1 — Exploração e Planejamento**
-
----
+Chatbot conversacional desenvolvido para o EV Challenge 2026 (FIAP x GoodWe),
+disciplina Prompt and Artificial Intelligence - 1º Ano de Ciência da Computação.
 
 ## Integrantes
 
-| Nome | RM |
-|------|----|
-| Davi Simoncelo | 571738 |
-| Augusto de Souza Ávila | 570839 |
-| João Pedro Sousa | 573962 |
-| Matheus Evangelista Silva | 568593 |
-| Murilo Lima de Carvalho | 570156 |
+- Davi Simoncelo - RM 571738 - turma 1CCPK
+- Augusto de Souza Ávila - RM 570839 - turma 1CCPK
+- João Pedro Sousa - RM 573962 - turma 1CCPK
+- Matheus Evangelista Silva - RM 568593 - turma 1CCPK
+- Murilo Lima de Carvalho - RM 570156 - turma 1CCPK
 
-**Turma:** 1CCPK
+## Problema abordado
 
----
+Operadores comerciais de eletropostos GoodWe ChargeGrid não têm uma ferramenta integrada de suporte em linguagem natural. Dúvidas sobre tarifas ANEEL, erros OCPP e sessões de recarga exigem contato com suporte técnico mesmo para questões básicas. O chatbot resolve esse gargalo com respostas práticas contextualizadas no ChargeGrid Intelligence.
 
-## Problema Abordado
+## Persona atendida
 
-O EV Challenge 2026 traz como problema central a falta de sistemas integrados nos eletropostos para controlar potência, registrar sessões de recarga, realizar cobranças e se comunicar com um sistema central. Hoje, os postos de recarga não têm uma forma inteligente de lidar com tudo isso junto.
+Operador comercial de eletropostos — responsável pela gestão diária dos pontos de recarga em shoppings, estacionamentos e empresas. Conhecimento intermediário: entende kW e kWh, mas não domina OCPP ou MODBUS. Escolhido por ser quem mais se beneficia de um assistente que traduz informação técnica em ações concretas.
 
-Com o crescimento dos carros elétricos, surgem alguns problemas práticos:
-- Risco de sobrecarga na rede elétrica se não houver controle da potência distribuída
-- Dificuldade em registrar e acompanhar os dados de cada recarga
-- Cobrança manual ou desorganizada, gerando perda de receita
-- Falta de comunicação padronizada entre os eletropostos e o sistema de gestão
+## Tecnologias utilizadas
 
----
+- Modelo: Qwen/Qwen2.5-7B-Instruct via Hugging Face Inference API (gratuito)
+- Linguagem: Python 3.10+
+- Bibliotecas principais: huggingface-hub, python-dotenv
 
-## Proposta do Chatbot
+## Justificativa técnica
 
-O Chatbot GoodWe é um chatbot que funciona como assistente para o operador do eletroposto. A ideia é que ele consiga tirar dúvidas, ajudar com diagnósticos e dar informações sobre o funcionamento do posto usando linguagem natural.
+Modelo planejado inicialmente: Google Gemini 2.0 Flash. Descartado por cota gratuita esgotada durante os testes (erro 429). Alternativas testadas: Mistral-7B-Instruct-v0.3 (descontinuado no HF) e zephyr-7b-beta (sem suporte no free tier). Modelo adotado: Qwen/Qwen2.5-7B-Instruct — compatível com chat no free tier e boa qualidade em PT-BR.
 
-**O que ele faz:**
-- Informa o status dos eletropostos (disponível, ocupado, com erro)
-- Auxilia na configuração de tarifas
-- Explica dados das sessões de recarga
-- Ajuda em diagnósticos técnicos básicos
-- Responde sobre protocolos como OCPP e MODBUS
+## Como executar
 
-**O que ele não faz:**
-- Não envia comandos direto para os equipamentos
-- Não processa pagamentos
-- Não substitui o painel de controle do sistema
+### Pré-requisito
 
----
+Crie uma conta gratuita em huggingface.co → Settings → Access Tokens → New Token (tipo Read). Copie o token gerado.
 
-## Persona Atendida
+### Localmente
 
-Escolhemos o **operador comercial de eletropostos** como persona principal.
-
-Esse profissional é responsável pela gestão diária dos pontos de recarga em ambientes comerciais (shoppings, estacionamentos, postos). Ele entende do negócio mas não é especialista em protocolos de comunicação, então precisa de respostas práticas e diretas. Escolhemos esse perfil porque é quem mais se beneficia de um assistente que traduz informação técnica em ações concretas.
-
----
-
-## Tecnologias Selecionadas
-
-| Tecnologia | Função no projeto |
-|------------|-------------------|
-| Google Gemini API | LLM do chatbot (modelo Gemini 2.0 Flash) |
-| LangChain | Framework para integração da IA com os documentos |
-| Python | Linguagem de desenvolvimento |
-| FastAPI | Backend/API do sistema |
-| ChromaDB | Banco vetorial para armazenar a base de conhecimento |
-| Streamlit | Interface de chat (frontend) |
-
-**Justificativa:** Optamos pelo Gemini por ter um plano gratuito com boa capacidade. LangChain + ChromaDB permitem implementar RAG (Retrieval-Augmented Generation), que faz o chatbot consultar nossos documentos técnicos antes de gerar uma resposta, melhorando a precisão. Python é a linguagem padrão para projetos de IA, e Streamlit permite criar a interface de forma rápida.
-
----
-
-## Documentos da Sprint 1
-
-- [Fluxograma de Funcionamento](docs/fluxograma.md)
-- [Modelo de Teste](docs/modelo-de-teste.md)
-- [System Prompt](docs/system-prompt.md)
-
----
-
-## Estrutura do Repositório
-
+```bash
+pip install -r requirements.txt
 ```
-goodwe-chatbot/
-├── README.md
-├── docs/
-│   ├── fluxograma.md
-│   ├── modelo-de-teste.md
-│   └── system-prompt.md
-├── src/                    (Sprint 2)
-├── tests/                  (Sprint 2)
-└── .gitignore
+
+Crie o arquivo `.env` na raiz do projeto:
 ```
+HF_TOKEN=hf_sua_chave_aqui
+```
+
+```bash
+python src/chatbot.py
+```
+
+### Pelo notebook
+
+1. Abra `notebooks/chatbot_notebook.ipynb`
+2. Confirme que o `.env` está na raiz com o `HF_TOKEN`
+3. Execute as células 1, 2, 3 e 4 em ordem
+4. Para conversar: execute a Célula 5
+5. Para rodar os testes: pule a Célula 5 e execute a Célula 6
+
+> Não execute as Células 5 e 6 juntas — o loop da Célula 5 trava o kernel.
+
+## System prompt
+
+docs/system-prompt.md
+
+## Modelo de teste
+
+tests/modelo-de-teste.md (casos) e tests/resultados.md (respostas obtidas e avaliação)
+
+## Vídeo
+
+https://youtu.be/s71PuRn5O6Y
+
+## Fluxograma
+
+docs/fluxograma.md
+
