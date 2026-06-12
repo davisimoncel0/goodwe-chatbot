@@ -35,6 +35,18 @@ Modelo planejado inicialmente: Google Gemini 2.0 Flash. Descartado por cota grat
 
 Crie uma conta gratuita em huggingface.co → Settings → Access Tokens → New Token (tipo Read). Copie o token gerado.
 
+### Em Google Colab
+
+1. Abra `notebooks/chatbot_notebook.ipynb` no Colab
+2. No menu lateral, clique no ícone de chave (**Secrets**) e adicione:
+   - Nome: `HF_TOKEN`
+   - Valor: seu token gerado em huggingface.co/settings/tokens
+3. Execute as células 1, 2, 3 e 4 em ordem
+4. Para conversar: execute a Célula 5
+5. Para rodar os testes: pule a Célula 5 e execute a Célula 6
+
+> Não execute as Células 5 e 6 juntas — o loop da Célula 5 trava o kernel.
+
 ### Localmente
 
 ```bash
@@ -50,7 +62,7 @@ HF_TOKEN=hf_sua_chave_aqui
 python src/chatbot.py
 ```
 
-### Pelo notebook
+### Pelo notebook (local)
 
 1. Abra `notebooks/chatbot_notebook.ipynb`
 2. Confirme que o `.env` está na raiz com o `HF_TOKEN`
@@ -74,5 +86,4 @@ https://youtu.be/s71PuRn5O6Y
 
 ## Fluxograma
 
-docs/fluxograma.md
-
+docs/fluxograma.svg

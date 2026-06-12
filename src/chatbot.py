@@ -18,27 +18,28 @@ Como executar localmente:
 4. python src/chatbot.py
 """
 
+# Biblioteca padrao
 import os
 import sys
 
-#1. CARREGAMENTO DE CREDENCIAIS — lê do arquivo .env
+# Bibliotecas de terceiros
+from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
+
+
+# 1. CARREGAMENTO DE CREDENCIAIS — le do arquivo .env
 
 def carregar_credenciais() -> str:
     """
     Le o HF_TOKEN do arquivo .env na raiz do projeto.
     Retorna o token ou string vazia se nao encontrado.
     """
-    try:
-        from dotenv import load_dotenv
-        load_dotenv()
-    except ImportError:
-        pass  # dotenv opcional; variavel pode ja estar no ambiente
-
+    load_dotenv()
     token = os.environ.get("HF_TOKEN", "").strip()
     return token
 
 
-#2. SYSTEM PROMPT — condiciona o modelo ao contexto ChargeGrid / GoodWe
+# 2. SYSTEM PROMPT — condiciona o modelo ao contexto ChargeGrid / GoodWe
 
 SYSTEM_PROMPT = """
 Voce eh o Chatbot GoodWe, assistente especializado no gerenciamento de eletropostos
@@ -78,12 +79,13 @@ ATENCAO: suporte tecnico necessario. Contate suporte.goodwe.com.
 TOM: tecnico, direto, portugues brasileiro.
 """
 
-#3. CONFIGURACOES
+# 3. CONFIGURACOES
 
 MODELO = "Qwen/Qwen2.5-7B-Instruct"
 TAMANHO_MAXIMO_HISTORICO = 10
 
-#4. GERENCIAMENTO DO HISTORICO
+
+# 4. GERENCIAMENTO DO HISTORICO
 
 def inicializar_historico() -> list:
     """Retorna o historico inicial com o system prompt."""
@@ -98,23 +100,14 @@ def adicionar_mensagem(historico: list, role: str, conteudo: str) -> list:
     return historico
 
 
-# ---------------------------------------------------------------------------
 # 5. CLIENTE HUGGING FACE
-# ---------------------------------------------------------------------------
 
-def criar_cliente(hf_token: str):
+def criar_cliente(hf_token: str) -> InferenceClient:
     """Inicializa o cliente Hugging Face com o modelo Qwen."""
-    try:
-        from huggingface_hub import InferenceClient
-        return InferenceClient(model=MODELO, token=hf_token)
-    except ImportError:
-        raise RuntimeError(
-            "Biblioteca huggingface_hub nao instalada.\n"
-            "Execute: pip install huggingface_hub"
-        )
+    return InferenceClient(model=MODELO, token=hf_token)
 
 
-def conversar(cliente, historico: list, mensagem: str) -> tuple:
+def conversar(cliente: InferenceClient, historico: list, mensagem: str) -> tuple:
     """
     Envia mensagem ao modelo e retorna (resposta, historico_atualizado).
     """
@@ -130,7 +123,7 @@ def conversar(cliente, historico: list, mensagem: str) -> tuple:
     return resposta, historico
 
 
-#6. LOOP PRINCIPAL
+# 6. LOOP PRINCIPAL
 
 def main():
     """Ponto de entrada do chatbot em modo terminal interativo."""
@@ -148,13 +141,9 @@ def main():
         print("Obtenha seu token em: huggingface.co/settings/tokens")
         sys.exit(1)
 
-    try:
-        cliente = criar_cliente(hf_token)
-    except RuntimeError as e:
-        print(f"\n[ERRO] {e}")
-        sys.exit(1)
-
+    cliente = criar_cliente(hf_token)
     historico = inicializar_historico()
+
     print("\nChatbot pronto. Digite 'sair' para encerrar, 'limpar' para reiniciar.\n")
     print("-" * 60)
 
