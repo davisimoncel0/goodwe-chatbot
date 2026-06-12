@@ -35,6 +35,8 @@ Modelo planejado inicialmente: Google Gemini 2.0 Flash. Descartado por cota grat
 
 Crie uma conta gratuita em huggingface.co → Settings → Access Tokens → New Token (tipo Read). Copie o token gerado.
 
+---
+
 ### Em Google Colab
 
 1. Abra `notebooks/chatbot_notebook.ipynb` no Colab
@@ -47,9 +49,15 @@ Crie uma conta gratuita em huggingface.co → Settings → Access Tokens → New
 
 > Não execute as Células 5 e 6 juntas — o loop da Célula 5 trava o kernel.
 
-### Localmente
+---
+
+### Localmente — macOS e Linux
+
+> Se aparecer o erro `externally-managed-environment`, crie um ambiente virtual antes de instalar as dependências:
 
 ```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -58,9 +66,32 @@ Crie o arquivo `.env` na raiz do projeto:
 HF_TOKEN=hf_sua_chave_aqui
 ```
 
+Execute o chatbot:
+```bash
+python3 src/chatbot.py
+```
+
+---
+
+### Localmente — Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Crie o arquivo `.env` na raiz do projeto:
+```
+HF_TOKEN=hf_sua_chave_aqui
+```
+
+Execute o chatbot:
 ```bash
 python src/chatbot.py
 ```
+
+---
 
 ### Pelo notebook (local)
 
@@ -71,6 +102,8 @@ python src/chatbot.py
 5. Para rodar os testes: pule a Célula 5 e execute a Célula 6
 
 > Não execute as Células 5 e 6 juntas — o loop da Célula 5 trava o kernel.
+
+---
 
 ## System prompt
 
@@ -87,3 +120,7 @@ https://youtu.be/s71PuRn5O6Y
 ## Fluxograma
 
 docs/fluxograma.svg
+
+## Licença
+
+Trabalho acadêmico — distribuição livre para fins educacionais.
