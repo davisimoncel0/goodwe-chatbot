@@ -29,6 +29,12 @@ Operador comercial de eletropostos — responsável pela gestão diária dos pon
 
 Modelo planejado inicialmente: Google Gemini 2.0 Flash. Descartado por cota gratuita esgotada durante os testes (erro 429). Alternativas testadas: Mistral-7B-Instruct-v0.3 (descontinuado no HF) e zephyr-7b-beta (sem suporte no free tier). Modelo adotado: Qwen/Qwen2.5-7B-Instruct — compatível com chat no free tier e boa qualidade em PT-BR.
 
+## Limitações conhecidas
+
+- Sem integração com CSMS: o chatbot não acessa dados reais de telemetria ou histórico.
+- Resistência adversarial: o modelo base Qwen 2.5 pode ceder a prompt injection em ataques elaborados.
+- Escalada humana: o bloco de escalada não é ativado de forma consistente em todos os diagnósticos.
+
 ## Como executar
 
 ### Pré-requisito
